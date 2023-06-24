@@ -1,0 +1,38 @@
+#+TITLE: Eternal Duel Concept
+#+DESCRIPTION: Concept file for the Eternal Duel project
+
+* Idea
+- The player must defeat a series on enemies which increase in difficulty as you progress.
+- The player can upgrade weapons and armor along the way
+- The game graphics will be simple ASCII Art
+
+
+* Mechanics
+** Currency
+   - Gold
+     >> Gold can be used to purchase spells, or train the players stats (for a list of stats see "Stats" below)
+    
+** Stats
+   - STRENGTH: How hard you hit
+   - INTELIGENCE: How hard magic hits
+   - ENDURANCE: How often you dodge enemy attacks
+   - VITALITY: How much health you have
+    
+** Combat
+*** Actions:
+    - HIT (STRENGTH)
+      >> Hits the enemy with your weapon;
+      
+    - MAGIC (INTELIGENCE)
+      >> Open a submenu with spells, use spells against enemies, or on yourself;
+      
+    - RUN (ENDURANCE)
+      >> Try and run from a battle;
+      
+*** During combat:
+    - The player and enemy will take turns;
+    - Each turn the player can take ONE action;
+    - The actions are listed in the "Actions" section above.
+      
+*** Post-combat:
+    - If the player wins, they gain gold.
