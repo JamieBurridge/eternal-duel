@@ -7,7 +7,7 @@
 - The game graphics will be simple ASCII Art
 
 
-* Mechanics
+* Game
 ** Currency
    - Gold
      >> Gold can be used to purchase spells, or train the players stats (for a list of stats see "Stats" below)
@@ -36,3 +36,13 @@
       
 *** Post-combat:
     - If the player wins, they gain gold.
+
+** Monsters 
+   - Monsters will get stronger the more the player gets stronger;
+   - All monsters can appear but there are specific odds for each one.
+     
+*** Encounter rate
+    - Fairy >> 70%
+    - Fire skeleton >> 60%
+    - Orc >> 30%
+    - Dragon warrior >> 1%
