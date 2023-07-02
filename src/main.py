@@ -1,3 +1,7 @@
+from time import sleep
+
+PRINT_SLEEP_TIME = 1
+
 def main():
     player = Player("Jay", 10, 10,10,  20)
 
@@ -13,11 +17,10 @@ def main():
 
             if fight_loser == monster:
                 # Player wins
-                print("Player won! Here is your reward!")
+                print("{player.name} WON! Here is your reward!")
                 player.gold = gold_reward(player, monster)
-            else: 
-                # Take away gold and restore health
-                player.health = player.max_health
+
+            player.health = player.max_health
         elif option.lower() == "s":
             player.show_stats()
         elif option.lower() == "e":
@@ -36,7 +39,7 @@ class Entity:
 
     def attack(self, target):
         damage = self.strength / 2
-        print(f"{self.name} attacks {target.name}! ({damage} damage)")
+        print(f"{self.name} ATTACKS {target.name}! ({damage} damage)")
         target.health -= damage
 
 
@@ -78,10 +81,13 @@ def fight(player, monster):
     participants = (player, monster)    
     turn_index = 0
 
+    print(f"A {monster.name} has appeared!!")
+
     battle_is_over = False
 
     while battle_is_over == False:
         current_attacker = participants[turn_index]
+        sleep(PRINT_SLEEP_TIME)
         print(f">>> {current_attacker.name}'s turn...")
 
         if current_attacker.health <= 0:
@@ -97,6 +103,7 @@ def fight(player, monster):
             elif option.lower() == "m":
                 player.magic_attack(monster)
         else:
+            sleep(PRINT_SLEEP_TIME)
             monster.attack(participants[0 if turn_index == 1 else 1])
 
         turn_index = 0 if turn_index == 1 else 1
@@ -113,7 +120,6 @@ def gold_reward(player, defeated_monster):
 
     print(f"GOLD: {player.gold} + {defeated_monster.gold_for_defeating} = {new_total_gold}")
 
-    print(new_total_gold)
     return new_total_gold
 
 
