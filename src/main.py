@@ -2,11 +2,16 @@ from time import sleep
 
 PRINT_SLEEP_TIME = 2
 
-menu_options = ("f", "s", "e")
+menu_options = ("f", "s", "u", "e")
 
+stats = {
+    "h": "health",
+    "s": "strength",
+    "i": "intelligence"
+}
 
 def main():
-    player = Player("Jay", 10, 10,10,  20)
+    player = Player("Jay", 10, 10, 10, 20)
 
     game_is_over = False
     while game_is_over == False:
@@ -14,7 +19,7 @@ def main():
 
         option = None
         while option not in menu_options:
-            option = input("What do you want to do? < [f]ight, [s]tats, [e]xit > ")
+            option = input("What do you want to do? < [f]ight, [s]tats, [u]pgrade, [e]xit > ")
 
         if option.lower() == "f":
             fight_loser = fight(player, monster)
@@ -24,9 +29,14 @@ def main():
                 print(f"{player.name} WON! Here is your reward!")
                 player.gold = gold_reward(player, monster)
 
-            player.health = player.max_health
         elif option.lower() == "s":
             player.show_stats()
+        elif option.lower() == "u":
+            stat_to_upgrade = None
+            while stat_to_upgrade not in ("h", "s", "i"):
+                stat_to_upgrade = input("What stat would you like to upgrade? < [h]ealth, [s]trength, [i]ntelligence > ")
+
+            upgrade_stat(player, stats[stat_to_upgrade])
         elif option.lower() == "e":
             game_is_over = True
             break;
@@ -51,7 +61,6 @@ class Player(Entity):
     def __init__(self, name, health, strength, intelligence, gold):
         super().__init__(name, health, strength)
 
-        self.max_health = health
         self.gold = gold
         self.intelligence = intelligence
 
@@ -71,6 +80,14 @@ class Player(Entity):
         target.health -= magic_damage if target.weak_to_magic else 0
 
 
+    def get_stat(self, stat):
+        return getattr(self, stat, None)
+
+
+    def set_stat(self, stat, value):
+        return setattr(self, stat, value)
+
+
 #### Monster setup
 class Monster(Entity):
      def __init__(self, name, health, strength, weak_to_magic, gold_for_defeating):
@@ -82,6 +99,7 @@ class Monster(Entity):
 
 #### Combat
 def fight(player, monster):
+    player_max_health = player.health
     participants = (player, monster)    
     turn_index = 0
 
@@ -99,7 +117,7 @@ def fight(player, monster):
 
         if current_attacker == player:
             option = None
-            while option not in ("f", "m"): option = input("What do you want to do? [f, m, ?] ")
+            while option not in ("f", "m"): option = input("What do you want to do? < [f]ight, [m]agic > ")
 
             if option.lower() == "f":
                 player.attack(monster)
@@ -115,6 +133,11 @@ def fight(player, monster):
         print(f"{player.name}'s health: {player.health}")
     
     print(f"The loser is {participants[turn_index].name}")
+
+    # Restore player health
+    player.health = player_max_health
+
+    # Return the loser
     return participants[turn_index]
 
 
@@ -125,6 +148,26 @@ def gold_reward(player, defeated_monster):
     print(f"GOLD: {player.gold} + {defeated_monster.gold_for_defeating} = {new_total_gold}")
 
     return new_total_gold
+
+
+#### Upgrade
+def upgrade_stat(player, stat):
+    price_of_new_stat = player.get_stat(stat) * 1.5
+    print(f"Price to upgrade {stat} is {price_of_new_stat}")
+
+    if player.gold < price_of_new_stat:
+        print("You do no have enough gold")
+        return
+    
+    answer = None
+    while answer not in ("y", "n"):
+        answer = input(f"Would you like to upgrade your {stat}? < [y]es, [n]o > ")
+
+    if answer == "y":
+        player.gold -= price_of_new_stat
+        player.set_stat(stat, player.get_stat(stat) + 2)
+        print(f"You have upgrade your {stat} to {player.get_stat(stat)}")
+
 
 
 main()
