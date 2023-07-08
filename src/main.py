@@ -1,6 +1,9 @@
 from time import sleep
 
-PRINT_SLEEP_TIME = 1
+PRINT_SLEEP_TIME = 2
+
+menu_options = ("f", "s", "e")
+
 
 def main():
     player = Player("Jay", 10, 10,10,  20)
@@ -10,14 +13,15 @@ def main():
         monster = Monster("Pixie", 10, 15, True, 20)
 
         option = None
-        while option not in ("f", "s", "e"): option = input("What do you want to do? < [f]ight, [s]tats, [e]xit > ")
-        
+        while option not in menu_options:
+            option = input("What do you want to do? < [f]ight, [s]tats, [e]xit > ")
+
         if option.lower() == "f":
             fight_loser = fight(player, monster)
 
             if fight_loser == monster:
                 # Player wins
-                print("{player.name} WON! Here is your reward!")
+                print(f"{player.name} WON! Here is your reward!")
                 player.gold = gold_reward(player, monster)
 
             player.health = player.max_health
@@ -26,7 +30,6 @@ def main():
         elif option.lower() == "e":
             game_is_over = True
             break;
-
 
 
 #### Entity shared class
@@ -64,7 +67,7 @@ class Player(Entity):
 
     def magic_attack(self, target):
         magic_damage = self.intelligence / 2
-        print(f"{self.name} attacks {target.name}! ({magic_damage} magic damage)")
+        print(f"{self.name} ATTACKS {target.name}! ({magic_damage} magic damage)")
         target.health -= magic_damage if target.weak_to_magic else 0
 
 
@@ -72,6 +75,7 @@ class Player(Entity):
 class Monster(Entity):
      def __init__(self, name, health, strength, weak_to_magic, gold_for_defeating):
         super().__init__(name, health, strength)
+
         self.weak_to_magic = weak_to_magic
         self.gold_for_defeating = gold_for_defeating
 
@@ -84,7 +88,6 @@ def fight(player, monster):
     print(f"A {monster.name} has appeared!!")
 
     battle_is_over = False
-
     while battle_is_over == False:
         current_attacker = participants[turn_index]
         sleep(PRINT_SLEEP_TIME)
@@ -108,7 +111,8 @@ def fight(player, monster):
 
         turn_index = 0 if turn_index == 1 else 1
 
-        print(f"Monster health: {monster.health} // Player health: {player.health}")
+        print(f"{monster.name}'s health: {monster.health}")
+        print(f"{player.name}'s health: {player.health}")
     
     print(f"The loser is {participants[turn_index].name}")
     return participants[turn_index]
