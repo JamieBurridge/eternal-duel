@@ -1,5 +1,6 @@
 from classes.Player import Player
 from classes.Monster import Monster
+
 from gameplay.fight import fight
 from gameplay.reward import gold_reward
 from gameplay.upgrade import upgrade_stat
@@ -13,7 +14,7 @@ def main():
     player = Player(game_load_json["name"], game_load_json["health"], game_load_json["strength"], game_load_json["intelligence"], game_load_json["gold"]) if game_load_json else Player("Player", 10, 10, 10, 20)
 
     while True:
-        monster = Monster("Pixie", 10, 15, True, 20)
+        monster = Monster("Pixie", 20, 15, True, 20)
 
         option = None
         while option not in main_menu_options.keys():
@@ -26,6 +27,8 @@ def main():
                 # Player wins
                 print(f"{player.name} WON! Here is your reward!")
                 player.gold = gold_reward(player, monster)
+            else:
+                print("You wake up after a long rest...")
 
         elif option.lower() == "s":
             player.show_stats()

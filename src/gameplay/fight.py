@@ -1,5 +1,5 @@
 from time import sleep
-from src.utils.options import fight_options
+from utils.options import fight_options
 
 PRINT_SLEEP_TIME = 2
 
@@ -38,7 +38,7 @@ def fight(player, monster):
         print(f"{monster.name}'s health: {monster.health}")
         print(f"{player.name}'s health: {player.health}")
 
-    print(f"The loser is {participants[turn_index].name}")
+    print(f"{participants[turn_index].name} has been DEFEATED!")
 
     # Restore player health
     player.health = player_max_health

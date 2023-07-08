@@ -1,4 +1,4 @@
-from src.classes.Entity import Entity
+from .Entity import Entity
 
 
 class Monster(Entity):
