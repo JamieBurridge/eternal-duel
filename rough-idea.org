@@ -1,6 +1,8 @@
 #+TITLE: Eternal Duel Concept
 #+DESCRIPTION: Concept file for the Eternal Duel project
 
+The final game may not be close to this initial idea, however it may share many ideas and features.
+
 * Idea
 - The player must defeat a series on enemies which increase in difficulty as you progress.
 - The player can upgrade weapons and armor along the way
