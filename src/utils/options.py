@@ -11,3 +11,8 @@ upgrade_options = {
     "i": "intelligence"
 }
 
+fight_options = {
+    "f": "fight",
+    "m": "magic"
+}
+

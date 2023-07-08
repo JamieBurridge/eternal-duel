@@ -1,4 +1,5 @@
 from time import sleep
+from src.utils.options import fight_options
 
 PRINT_SLEEP_TIME = 2
 
@@ -21,7 +22,7 @@ def fight(player, monster):
 
         if current_attacker == player:
             option = None
-            while option not in ("f", "m"):
+            while option not in fight_options.keys():
                 option = input("What do you want to do? < [f]ight, [m]agic > ")
 
             if option.lower() == "f":
