@@ -162,3 +162,7 @@ cython_debug/
 # MISC
 *.org~
 *.txt~
+
+assets/
+idea.org
+save.json
