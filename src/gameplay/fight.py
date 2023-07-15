@@ -6,10 +6,12 @@ PRINT_SLEEP_TIME = 2
 
 def fight(player, monster):
     player_max_health = player.health
+    monster_max_health = monster.health
+
     participants = (player, monster)
     turn_index = 0
 
-    print(f"A {monster.name} has appeared!!")
+    print(f"A {monster.name} has appeared!! {monster.health} health.")
 
     while True:
         current_attacker = participants[turn_index]
@@ -42,6 +44,7 @@ def fight(player, monster):
 
     # Restore player health
     player.health = player_max_health
+    monster.health = monster_max_health
 
     # Return the loser
     return participants[turn_index]
